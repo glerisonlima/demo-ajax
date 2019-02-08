@@ -9,6 +9,9 @@ $("#linkPromocao").on('change', function(){
 			cache: false, 
 			success: function(data){
 				console.log(data);
+				$("#titulo").val(data.titulo);
+				$("#site").text(data.site.replace("@" , ""));
+				$("#linkImagem").attr("src", data.image);
 			}
 		});
 	}

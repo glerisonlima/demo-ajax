@@ -18,7 +18,8 @@ public class SocialMetaTagController {
 	private SocialMetaTagService service;
 	
 	@PostMapping("/info")
-	public ResponseEntity<SocialMetaTag> getDadosViaUrl(@RequestParam("url") String url){
+	public ResponseEntity<SocialMetaTag> getDadosViaUrl(@RequestParam("url") String url) {
+		
 		SocialMetaTag socialMetaTag = service.getSocialMetaTagByUrl(url);
 		return socialMetaTag != null
 				? ResponseEntity.ok(socialMetaTag)

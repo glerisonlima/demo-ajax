@@ -17,7 +17,7 @@ public class SocialMetaTagService {
 	
 	public SocialMetaTag getSocialMetaTagByUrl(String url) {
 		SocialMetaTag twitter = getTwitterCardByUrl(url);
-		if(!isEmpty(twitter)) {
+			if(!isEmpty(twitter)) {
 			return twitter;
 		}
 		SocialMetaTag openGraph = getOpenGraphByUrl(url);
@@ -30,7 +30,9 @@ public class SocialMetaTagService {
 	private SocialMetaTag getTwitterCardByUrl(String url) {
 		SocialMetaTag tag = new SocialMetaTag();
 		try {
-			Document doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url)
+				    .header("Access-Control-Allow-Origin", "https://collector-pxzhh9f9x0.perimeterx.net/api/v1/collector")
+				    .get();
 			tag.setTitulo(doc.head().select("meta[name=twitter:title]").attr("content"));
 			tag.setSite(doc.head().select("meta[name=twitter:site]").attr("content"));
 			tag.setImage(doc.head().select("meta[name=twitter:image]").attr("content"));
@@ -41,10 +43,12 @@ public class SocialMetaTagService {
 		return tag;
 	}
 	
-	private SocialMetaTag getOpenGraphByUrl(String url) {
+	public SocialMetaTag getOpenGraphByUrl(String url) {
 		SocialMetaTag tag = new SocialMetaTag();
 		try {
-			Document doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url)
+				    .header("Access-Control-Allow-Origin", "https://collector-pxzhh9f9x0.perimeterx.net/api/v1/collector")
+				    .get();
 			tag.setTitulo(doc.head().select("meta[property=og:title]").attr("content"));
 			tag.setSite(doc.head().select("meta[property=og:site_name]").attr("content"));
 			tag.setImage(doc.head().select("meta[property=og:image]").attr("content"));

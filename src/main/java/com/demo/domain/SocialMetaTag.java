@@ -9,6 +9,11 @@ public class SocialMetaTag implements Serializable{
 	private String titulo;
 	private String url;
 	private String image;
+	
+	@Override
+	public String toString() {
+		return "SocialMetaTag [site=" + site + ", titulo=" + titulo + ", url=" + url + ", image=" + image + "]";
+	}
 	public String getSite() {
 		return site;
 	}
