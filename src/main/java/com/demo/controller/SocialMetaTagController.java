@@ -17,6 +17,8 @@ public class SocialMetaTagController {
 	@Autowired
 	private SocialMetaTagService service;
 	
+	
+	
 	@PostMapping("/info")
 	public ResponseEntity<SocialMetaTag> getDadosViaUrl(@RequestParam("url") String url) {
 		
