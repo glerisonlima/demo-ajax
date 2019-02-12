@@ -1,3 +1,39 @@
+//SUBMIT DI FORMULARIO PARA O CONTROLLER
+$("#form-add-promo").submit(function(evt){
+	//bloquear o comportamento padrão do submit
+	evt.preventDefault();
+	
+	var promo = {};
+	promo.linkPromocao = $("#linkPromocao").val();
+	promo.descricao = $("#descricao").val();
+	promo.preco = $("#preco").val();
+	promo.titulo = $("#titulo").val();
+	promo.categoria = $("#categoria").val();
+	promo.linkImagem = $("#linkImagem").attr("src");
+	promo.site = $("#site").text();
+	
+	console.log('promo > ', promo);
+	
+	$.ajax({
+		method: "POST",
+		url: "/promocao/save",
+		data: promo,
+		success: function(){
+			$("#form-add-promo").each(function(){
+				this.reset();
+			});
+			$("#linkImagem").attr("src", "/images/promo-dark.png");
+			$("#site").text("");
+			
+			$("#alert").addClass("alert alert-success").text("Ok!, promoção cadastrada com sucesso.");
+		},
+		erros: function(xhr){
+			console.log("> error: ", xhr.responseText);
+			$("#alert").addClass("alert alert-danger").text("Não foi possivel salvar esta promoção!");
+		}
+	});
+});
+
 //FUNÇÃO PARA CAPTURAR AS META TAGS
 $("#linkPromocao").on('change', function(){
 	var url = $(this).val();
@@ -8,7 +44,7 @@ $("#linkPromocao").on('change', function(){
 			url: "/meta/info?url=" + url,
 			cache: false,
 			beforeSend: function(){
-				$("#alert").removeClass("alert alert-danger").text('');
+				$("#alert").removeClass("alert alert-danger alert-success").text('');
 				$("#titulo").val("");
 				$("#site").text("");
 				$("#linkImagem").attr("src", "");
